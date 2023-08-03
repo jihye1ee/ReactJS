@@ -33,9 +33,13 @@
         backgroundColor: "#D9E5FF"
       }
     }, "Click me!");
-    const container = React.createElement("div", null, [h3, button]); // div 안에 span을 먼저 button을 그 다음으로 render하고 싶을 때 배열 사용
+    const container = React.createElement("div", null, [h3, button]); // div 안에 h3을 먼저 button을 그 다음으로 render하고 싶을 때 배열 사용
 
-    ReactDOM.render(container, root); // render: react element를 가지고 html로 만들어 배치한다는 것 => "사용자에게 보여 준다"
+    ReactDOM.render(container, root);
+    /*
+      render: react element를 가지고 html로 만들어 배치한다는 것 => "사용자에게 보여 준다"
+      ReactDOM.render(container, root); => React element들을 root div 안에서 보여 주라는 뜻
+      */
   </script>
 </html>
 
