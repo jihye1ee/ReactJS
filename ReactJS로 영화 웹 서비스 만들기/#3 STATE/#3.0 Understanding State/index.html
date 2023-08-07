@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    /*
+      [State]
+      - 기본적으로 데이터가 저장되는 곳
+    */
+
+    const root = document.getElementById("root");
+    let counter = 0;
+
+    function countUp() {
+      counter += 1;
+      // ReactDOM.render(<Container />, root); (2) Counter 리렌더링 (그래야 함수가 다시 호출되고 업데이트된 counter 값이 화면에 보임)
+      render(); // 지금 이 방식은 계속 render 해 주는 걸 잊으면 안 되기 때문에 최고의 방법은 아님
+    }
+    function render() {
+      // (3) 리렌더링 하는 함수 만듦
+      ReactDOM.render(<Container />, root);
+    }
+
+    const Container = () => (
+      <div>
+        <h3>Total clicks: {counter}</h3>
+        <button onClick={countUp}>Click me!</button>
+      </div>
+    );
+
+    // ReactDOM.render(<Container />, root); (1) 애플리케이션이 시작될 때 Container 렌더링 (counter = 0)
+    render();
+  </script>
+</html>
