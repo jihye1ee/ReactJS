@@ -10,7 +10,7 @@
     const root = document.getElementById("root");
 
     function App() {
-      let [counter, setCounter] = React.useState(0); // React.useState() 함수는 초기값 설정 가능
+      const [counter, setCounter] = React.useState(0); // React.useState() 함수는 초기값 설정 가능
       /*
         const data = React.useState(); // React.useState() 함수는 초기값 설정 가능
         console.log(data); [초기값, 초기값을 바꾸는 함수] => 배열
@@ -24,7 +24,15 @@
         mySecondFavFood => "potato"
       */
       const onClick = () => {
-        setCounter(counter + 1); // setCounter 함수는 값을 하나 받는데 어떤 값을 부여하든 setCounter 함수는 그 값으로 업데이트하고 리렌더링을 일으킴
+        setCounter(counter + 1);
+        /*
+          setCounter 함수는 값을 하나 받는데 어떤 값을 부여하든 setCounter 함수는 그 값으로 업데이트하고 리렌더링을 일으킴
+
+          ++counter는 변수를 불러오기 전에 1 증가 후 출력하는 전위 증가 연산자 사용으로 counter = counter + 1이므로 안 됨
+          counter를 const로 선언했기 때문에.. let으로 선언하면 가능
+
+          counter + 1은 counter + 1의 값을 counter에 재할당하는 것이 아니기 때문에 const로 선언해도 작성 가능
+        */
       };
 
       return (
