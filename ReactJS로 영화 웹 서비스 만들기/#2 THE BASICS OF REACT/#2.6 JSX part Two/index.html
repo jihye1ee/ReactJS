@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const root = document.getElementById("root");
+    const Title = () => ( // arrow function
+      <h3 id="title" onMouseEnter={() => console.log("mouse enter")}>Hello, I'm a h3!</h3>
+    );
+    /*
+      function Title() {
+        return (
+          <h3 id="title" onMouseEnter={() => console.log("mouse enter")}>Hello, I'm a h3!</h3>
+        )
+      }
+    */
+    const Button = () => (
+      <button style={{backgroundColor: "#D9E5FF"}} onClick={() => console.log("I'm clicked!")}>Click me!</button>
+    );
+    const Container = () => (
+      <div>
+        <button>Hello</button>
+        <Title />
+        <Button />
+      </div>
+    );
+    // const container = React.createElement("div", null, [Title, Button]);
+
+    /*
+      - <div>h3 button</div> -> 이렇게만 작성하면 텍스트만 뜸 그래서 위 변수들을 함수로 만들어 줘야 함
+      - 🌟 컴포넌트의 첫 글자는 반드시 대문자여야 함 (소문자면 React와 JSX는 html 태그라고 인식하기 때문에 구분해서 작성해야 함) 🌟
+    */
+
+    ReactDOM.render(<Container />, root);
+  </script>
+</html>
