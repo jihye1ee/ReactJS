@@ -7,6 +7,12 @@
   <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
+    /*
+      - modifier 함수(setCounter)를 이용해서 state(counter)를 바꾸면 컴포넌트(App)가 새로운 값을 가지고 재생성된 다음 코드가 다시 실행됨
+      - 🌟 state가 바뀌면 리렌더링이 일어남 🌟
+      - React는 Vanilla JS와 다르게 html 태그를 따로 만들 필요도 없고 데이터가 업데이트되는 부분만 리렌더링 해 줌
+    */
+
     const root = document.getElementById("root");
     const App = () => {
       const [counter, setCounter] = React.useState(0);
