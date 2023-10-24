@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    // [Unit Conversion]
+    const root = document.getElementById("root");
+    // 분 -> 시간
+    const App = () => {
+      const [minutes, setMinutes] = React.useState();
+      /*
+        React 세계에서 input은 uncontrolled라고 알려져 있음 -> input의 value는 우리가 통제할 수 없다는 뜻임
+        그래서 state를 만듦 이후 value, onChange와 같은 속성을 붙여서 상태 관리 함
+      */
+      const onChange = (event) => {
+        // console.log(event.target.value); React JS에서 form을 다루는 방법 (event -> target -> value)
+        setMinutes(event.target.value);
+      };
+
+      return (
+        /*
+          jsx는 html과 비슷하지만 다른 점이 있음
+          1. class (X) -> className (O)
+          2. for (X) -> htmlFor (O)
+          class와 for은 JavaScript 용어로 이미 선점된 단어이기 때문에 사용할 수 없음
+
+          지금은 production.min.js(배포 모드)를 사용 중이라 에러가 뜨지는 않지만 이를 development(개발 모드)로 바꾼다면 에러가 뜸
+        */
+        <div>
+          <h1 className="title">Super Converter</h1>
+          <label htmlFor="minutes">Minutes</label>
+          <input type="number" id="minutes" value={minutes} placeholder="Minutes" onChange={onChange} />
+          <h4>You want to convert {minutes}</h4>
+          <label htmlFor="hours">Hours</label>
+          <input type="number" id="hours" placeholder="Hours" />
+        </div>
+        // 사용자가 input에 새로운 값을 입력할 때마다 state를 업데이트하고 싶을 때 쓰는 이벤트 "change"
+      );
+    };
+
+    ReactDOM.render(<App />, root);
+  </script>
+</html>
