@@ -11,28 +11,38 @@
     const root = document.getElementById("root");
     // 분 -> 시간
     const App = () => {
-      const [minutes, setMinutes] = React.useState(0);
+      const [amount, setAmount] = React.useState(0);
+      const [flipped, setFlipped] = React.useState(false); // flipped는 단순히 true 혹은 false인 변수
       const onChange = (event) => {
         // input에서 리스닝하는 데이터를 업데이트해 주는 역할
-        setMinutes(event.target.value);
+        setAmount(event.target.value);
       };
-      const reset = () => setMinutes(0); // state를 리스닝하거나 연결한 모든 것들이 0이 됨
+      const reset = () => setAmount(0); // state를 리스닝하거나 연결한 모든 것들이 0이 됨
+      const onFlip = () => {
+        setFlipped((current) => !current);
+      };
 
       return (
         <div>
           <h1 className="title">Super Converter</h1>
           <div>
             <label htmlFor="minutes">Minutes</label>
-            <input type="number" id="minutes" value={minutes} placeholder="Minutes" onChange={onChange} />
+            <input type="number" id="minutes" value={flipped ? amount * 60 : amount} placeholder="Minutes" onChange={onChange} disabled={flipped} />
           </div>
           <div>
             <label htmlFor="hours">Hours</label>
-            <input type="number" id="hours" value={Math.round(minutes / 60)} placeholder="Hours" />
+            <input type="number" id="hours" value={flipped ? amount : Math.round(amount / 60)} placeholder="Hours" onChange={onChange} disabled={!flipped} />
           </div>
           <button onClick={reset}>Reset</button>
+          <button onClick={onFlip}>Flip</button>
         </div>
       );
-      // input의 value를 연결시켜 주는 이유는 input 값을 외부에서도 수정해 주기 위해
+      /*
+        - input의 value를 연결시켜 주는 이유는 input 값을 외부에서도 수정해 주기 위해
+
+        - disabled={flipped === false} → 조건문
+          위 코드는 disabled={flipped === false}를 disabled={flipped}로 간단하게 수정함
+        */
     };
 
     ReactDOM.render(<App />, root);
