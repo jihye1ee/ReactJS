@@ -12,15 +12,14 @@
     // 분 -> 시간
     const App = () => {
       const [amount, setAmount] = React.useState(0);
-      const [flipped, setFlipped] = React.useState(false); // flipped는 단순히 true 혹은 false인 변수
+      const [inverted, setInverted] = React.useState(false); // flipped는 헷갈릴 수 있어 inverted로 수정
       const onChange = (event) => {
-        // input에서 리스닝하는 데이터를 업데이트해 주는 역할
         setAmount(event.target.value);
       };
-      const reset = () => setAmount(0); // state를 리스닝하거나 연결한 모든 것들이 0이 됨
-      const onFlip = () => {
+      const reset = () => setAmount(0);
+      const onInvert = () => {
         reset();
-        setFlipped((current) => !current);
+        setInverted((current) => !current);
       };
 
       return (
@@ -28,21 +27,19 @@
           <h1 className="title">Super Converter</h1>
           <div>
             <label htmlFor="minutes">Minutes</label>
-            <input type="number" id="minutes" value={flipped ? amount * 60 : amount} placeholder="Minutes" onChange={onChange} disabled={flipped} />
+            <input type="number" id="minutes" value={inverted ? amount * 60 : amount} placeholder="Minutes" onChange={onChange} disabled={inverted} />
           </div>
           <div>
             <label htmlFor="hours">Hours</label>
-            <input type="number" id="hours" value={flipped ? amount : Math.round(amount / 60)} placeholder="Hours" onChange={onChange} disabled={!flipped} />
+            <input type="number" id="hours" value={inverted ? amount : Math.round(amount / 60)} placeholder="Hours" onChange={onChange} disabled={!inverted} />
           </div>
           <button onClick={reset}>Reset</button>
-          <button onClick={onFlip}>Flip</button>
+          <button onClick={onInvert}>{inverted ? "Turn back" : "Invert"}</button>
         </div>
       );
       /*
-        - input의 value를 연결시켜 주는 이유는 input 값을 외부에서도 수정해 주기 위해
-
-        - disabled={flipped === false} → 조건문
-          위 코드는 disabled={flipped === false}를 disabled={flipped}로 간단하게 수정함
+        - inverted가 false면 #minutes input이 활성화되어 있는 것으므로 Invert
+        - inverted가 true면 #hours input이 활성화되어 있는 것이므로 Turn back
       */
     };
 
