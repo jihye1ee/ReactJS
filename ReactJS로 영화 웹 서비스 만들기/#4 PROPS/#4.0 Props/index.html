@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    // [Props]: 부모 컴포넌트로부터 자식 컴포넌트에 데이터를 보낼 수 있게 해 주는 일종의 방식
+
+    const root = document.getElementById("root");
+
+    // ▼ 함수형 컴포넌트: 함수로 정의하고 return문에 JSX 코드를 반환
+    function Btn(props) { // 괄호를 통해 인자(argument)를 받음
+      return <button style={{
+        // style 속성은 자바스크립트 객체 형태로 작성해 주면 됨
+        backgroundColor: "tomato",
+        color: "white",
+        padding: "10px 20px",
+        border: 0,
+        borderRadius: 10
+      }}>{props.text}</button>;
+    };
+
+    /*
+    [shortcut]
+    function Btn({text}) {
+      return <button style={{
+        backgroundColor: "tomato",
+        color: "white",
+        padding: "10px 20px",
+        border: 0,
+        borderRadius: 10
+      }}>{text}</button>;
+    };
+    */
+
+    function App() {
+      return (
+        <div>
+          <Btn text="Save Changes" />
+          <Btn text="Confirm" />
+        </div>
+      );
+      /*
+        (1)
+        <Btn text="Save Changes" />
+        ↑ 이렇게 작성하는 건
+        Btn({text: "Save Changes"})
+        ↑ 이렇게 Btn 함수를 불러 text라는 인자를 위 방식처럼 보내는 것과 같음
+
+        (2)
+        ReactJS는 <Btn 📌 text="Save Changes" 📌/> 📌 사이에 넣는 모든 속성(prop)들을 Btn(📍{text: "Save Changes"}📍) 📍 객체 안으로 집어 넣음
+        그리고 📍 객체는 Btn 컴포넌트의 첫 번째이자 유일한 인자로 주어짐 (두 번째 인자는 없음)
+      */
+    };
+
+    /*
+    [사용 방법 2]
+    function Btn({text, big}) { // 객체의 구조 분해 할당
+      return <button style={{
+        backgroundColor: "tomato",
+        color: "white",
+        padding: "10px 20px",
+        border: 0,
+        borderRadius: 10,
+        fontSize: big ? 18 : 16,
+      }}>{text}</button>;
+    };
+
+    function App() {
+      return (
+        <div>
+          <Btn text="Save Changes" big={true} />
+          <Btn text="Confirm" big={false} />
+        </div>
+      );
+    };
+    */
+
+    ReactDOM.render(<App />, root);
+  </script>
+</html>
