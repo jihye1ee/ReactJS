@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+  <!-- PropType: 어떤 타입의 prop을 받고 있는지 체크해 줌 -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const root = document.getElementById("root");
+
+    function Btn({text, fontSize = 30}) { // 📍 정의되지 않은 변수에 관한 기본값 주는 방법 (React (X) / JavaScript 문법 (O))
+      return <button style={{
+        backgroundColor: "tomato",
+        color: "white",
+        padding: "10px 20px",
+        border: 0,
+        borderRadius: 10,
+        fontSize,
+      }}>{text}</button>;
+    };
+
+    Btn.propTypes = {
+      text: PropTypes.string.isRequired, // 필수 (required)
+      fontSize: PropTypes.number // 있든 없든 상관없음 (optional)
+    }
+    /*
+      - type을 지정해 주기 전 <Btn text={18} fontSize="Save Changes" /> 코드는 유효하여 에러를 보여 주고 있지 않음 (text는 string, fontSize는 number를 받기를 원함)
+      하지만 PropType을 통해 React에게 prop들의 type이 어떻게 되는지 설명해 주어 실수로 잘못 작성했을 때 알려 줄 수 있게 됨
+
+      - .isRequired: prop을 정확히 갖고 render될 것이라는 것을 확실히하고 싶을 때 붙임
+
+      - 대소문자 잘 구분해서 쓰기!
+    */
+
+    function App() {
+      return (
+        <div>
+          <Btn text="Save Changes" fontSize={18} />
+          <Btn text="Confirm" />
+        </div>
+      );
+    };
+    /*
+      📍
+      <Btn text={18} fontSize="Save Changes" />
+      <Btn text="Confirm" />
+      첫 번째 버튼은 폰트 사이즈 18px 값이 주어져 두 번째 버튼만 폰트 사이즈 20px 됨
+    */
+
+    ReactDOM.render(<App />, root);
+  </script>
+</html>
